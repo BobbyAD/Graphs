@@ -93,7 +93,7 @@ class Graph:
         for i in range(0, len(paths)):
             if len(paths[i]) < len(paths[current_index]):
                 current_index = i
-        print(paths[current_index])
+        return paths[current_index]
         
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -101,7 +101,20 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
+        def recur(self, starting_vertex, destination_vertex, visited = [], stack = Stack()):
+            stack.push(starting_vertex)
+            vertex = stack.pop()
+            if vertex == destination_vertex:
+                visited.append(vertex)
+                return(visited)
+            if vertex not in visited:
+                visited.append(vertex)
+                for next_vert in self.vertices[vertex]:
+                    path = recur(self, next_vert, destination_vertex, visited.copy(), stack)
+                    if path:
+                        return path
+        
+        return recur(self, starting_vertex, destination_vertex)
 
 
 
@@ -184,4 +197,5 @@ if __name__ == '__main__':
         [1, 2, 4, 6]
         [1, 2, 4, 7, 6]
     '''
+    print("DFS")
     print(graph.dfs(1, 6))
